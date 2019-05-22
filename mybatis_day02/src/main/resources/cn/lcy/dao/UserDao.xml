@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lcy.dao.UserDao">
+    <select id="findAll" resultType="user">
+      select * from user;
+    </select>
+
+    <select id="findById" parameterType="int" resultType="user">
+        select * from user where id = #{id};
+    </select>
+
+    <select id="findByName" parameterType="String" resultType="user">
+        select * from user where username = #{username}
+    </select>
+
+    <insert id="addUser" parameterType="user">
+        insert into user (username,birthday,address,sex) values (#{username},#{birthday},#{address},#{sex});
+    </insert>
+
+    <insert id="addUser1" parameterType="user" keyProperty="id" useGeneratedKeys="true">
+        insert into user (username,birthday,address,sex) values (#{username},#{birthday},#{address},#{sex});
+    </insert>
+
+    <update id="updateUser" parameterType="user">
+        update user set username = #{username} where id = #{id};
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id = #{id};
+    </delete>
+
+    <select id="findCount" resultType="int">
+        select count(*) from user ;
+    </select>
+
+    <select id="likeUser" resultType="User" parameterType="String">
+        select * from user where username like '%${value}%' ;
+    </select>
+
+    <select id="findByResultMap" resultMap="resultMap" parameterType="String">
+        select username u ,birthday b,sex s,address a from user where username = #{name}
+    </select>
+    <resultMap id="resultMap" type="user">
+        <id column="id_" property="id"></id>
+        <result column="u" property="username"></result>
+        <result column="b" property="birthday"></result>
+        <result column="s" property="sex"></result>
+        <result column="a" property="address"></result>
+    </resultMap>
+</mapper>

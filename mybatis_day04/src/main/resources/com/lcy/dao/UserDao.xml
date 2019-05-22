@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.dao.UserDao">
+    <select id="findUserById" resultType="user">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="findAllUser" resultMap="find">
+        select * from user
+    </select>
+    <resultMap id="find" type="user">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="birthday" property="birthday"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+        <!-- 建立一对多的关系 -->
+        <collection property="list" javaType="list" ofType="account"
+                    select="com.lcy.dao.AccountDao.findAccountByUid" column="id">
+        </collection>
+
+    </resultMap>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lcy.mybatis.dao.AccountDao">
+    <select id="findAccount" resultMap="resultAccount">
+        SELECT a.`ID` aid,a.uid uid,a.`MONEY` money,u.* FROM account a LEFT JOIN USER u ON u.`id` = a.`UID`
+    </select>
+    <resultMap id="resultAccount" type="account">
+        <id column="aid" property="id"/>
+        <result column="uid" property="uid"/>
+        <result column="money" property="money"/>
+        <!-- 建立一对一的关系 -->
+        <association property="user" javaType="user">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="birthday" property="birthday"/>
+            <result column="sex" property="sex"/>
+            <result column="address" property="address"/>
+        </association>
+    </resultMap>
+</mapper>

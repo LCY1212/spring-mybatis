@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--  引入jdbc连接数据  -->
+    <properties resource="jdbc.properties"></properties>
+    <!-- 给全限定类名起别名  -->
+    <typeAliases>
+        <package name="cn.lcy.domain"></package>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- 引入package来声明引入的映射文件
+
+              约定
+                   1.sql映射文件的位置：必须放置到dao接口的同名包下
+                   2.sql映射文件的命名：必须和dao接口名保持一致
+                将所有的sql映射文件放置到同样包下(dao接口放置到同一个包下
+          -->
+        <!--<package name="cn.lcy.dao"></package>-->
+        <mapper resource="UserDao.xml"></mapper>
+    </mappers>
+</configuration>

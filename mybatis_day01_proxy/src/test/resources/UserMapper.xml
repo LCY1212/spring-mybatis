@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!--namespace:名称空间
+		区分模块
+	唯一：namespace.id
+ -->  
+<mapper namespace="cn.lcy.dao.Dao">
+<!-- select 查询 -->   
+	<select id="getAll" resultType="cn.lcy.domain.User">
+		select *  from user   
+	</select>    
+</mapper>   

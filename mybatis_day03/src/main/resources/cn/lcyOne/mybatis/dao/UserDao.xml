@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  hahaha -->
+<mapper namespace="cn.lcyOne.mybatis.dao.UserDao">
+    <sql id="find">
+        select * from user
+    </sql>
+
+    <select id="findAll" resultType="user">
+      select * from user;
+    </select>
+
+    <select id="findByCondition" parameterType="user" resultType="user">
+        select * from user where 1 = 1
+        <if test="username != null and !''.equals(username)">
+          and username = #{username}
+        </if>
+        <if test="sex != null and !''.equals(sex)">
+            and sex = #{sex}
+        </if>
+    </select>
+
+    <select id="findByLike" parameterType="user" resultType="user">
+        select * from user
+        <where>
+            <if test="username != null and !''.equals(username)">
+                username like concat("%",#{username},"%")
+            </if>
+            <if test="sex != null and !''.equals(sex)">
+                and sex = #{sex}
+            </if>
+        </where>
+    </select>
+    
+    <select id="findByCondition1" parameterType="user" resultType="user" >
+        <include refid="find" ></include>
+        <where>
+            <if test="username != null and !''.equals(username)">
+                username like concat('%',#{username},'%')
+            </if>
+            <if test="address != null and address != '' ">
+                and address like concat('%',#{address},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findByIn" parameterType="int[]" resultType="user">
+        <include refid="find"></include>
+        <where>
+            id  in
+            <foreach collection="array" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+</mapper>
